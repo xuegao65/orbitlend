@@ -24,6 +24,8 @@ export default defineConfig({
       os: "os-browserify",
       url: "url",
       buffer: "buffer",
+      fs: false,
+      path: false,
     },
   },
   define: {
@@ -49,7 +51,17 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     rollupOptions: {
-      external: ["fs", "path"],
+      external: [],
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom"],
+          "solana-vendor": ["@solana/web3.js", "@solana/wallet-adapter-react"],
+        },
+      },
     },
+  },
+  server: {
+    host: true,
+    port: 3000,
   },
 });
